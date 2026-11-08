@@ -40,6 +40,9 @@ def simulate_shock(
     one_off_cost=0,
     extra_monthly_spending=0,
     projection_months=6,
+    one_off_months_of_spending=0,
+    duration_months=None,
+    spending_cut_monthly=0,
 ):
     # Check required customer information
     required = (
@@ -78,7 +81,11 @@ def simulate_shock(
         "household_bills_increase_pct"
     )
 
-    one_off = _number(one_off_cost, "one_off_cost")
+    one_off_k = _number(one_off_months_of_spending, "one_off_months_of_spending")
+    if one_off_k < 0:
+        raise ValueError("one_off_months_of_spending cannot be negative")
+    # Twist cards often size one-offs as "a full month of typical spending" -> k x S
+    one_off = _number(one_off_cost, "one_off_cost") + one_off_k * spending
 
     extra_monthly = _number(
         extra_monthly_spending, "extra_monthly_spending"
@@ -115,13 +122,19 @@ def simulate_shock(
     # Example: EI replaces 55% of normal income
     income_after = income * (replacement / 100)
 
+    # Optional what-if: a monthly spending cut (used by the plan / chat, never by twist cards)
+    cut = _number(spending_cut_monthly, "spending_cut_monthly")
+    if cut < 0:
+        raise ValueError("spending_cut_monthly cannot be negative")
+
     # Calculate spending after the shock
     # Household bills are already included in spending
-    spending_after = (
+    spending_after = max(0.0, (
         spending
         + household_bills * (bills_increase / 100)
         + extra_monthly
-    )
+        - cut
+    ))
 
     # Deduct one-time emergency expenses from buffer
     buffer_left = buffer - one_off
@@ -148,6 +161,31 @@ def simulate_shock(
             or buffer_left >= 6 * monthly_gap
         )
     )
+
+    # Verdict for the live twist ("EI for 6 months. Do they make it?")
+    target = int(duration_months) if duration_months else 6
+    survives_target = buffer_left > 0 and (
+        monthly_gap <= 0 or buffer_left >= target * monthly_gap
+    )
+    if buffer <= 0:
+        verdict = (f"No savings to fall back on: their buffer is already ${buffer:,.0f}, "
+                   f"so runway is 0 before any shock.")
+    elif buffer_left <= 0:
+        verdict = (f"Can't absorb it: the one-off cost (${one_off:,.0f}) is bigger "
+                   f"than the buffer (${buffer:,.0f}).")
+    elif monthly_gap <= 0:
+        verdict = "Makes it: income still covers spending, the buffer is never touched."
+    elif not duration_months:
+        verdict = (f"Buffer lasts {runway:.1f} months at a ${monthly_gap:,.0f}/month shortfall"
+                   + (" (meets the 6-month safety line)." if survives_target
+                      else " (below the 6-month safety line)."))
+    elif survives_target:
+        verdict = (f"Makes it: {runway:.1f} months of runway vs a {target}-month shock "
+                   f"(${buffer_left - target * monthly_gap:,.0f} left at the end).")
+    else:
+        verdict = (f"Doesn't make it: runs out after {runway:.1f} months, "
+                   f"{target - buffer_left / monthly_gap:.1f} months short "
+                   f"(needs ${target * monthly_gap - buffer_left:,.0f} more).")
 
     # Generate projected balances for graphs
     forecast = []
@@ -182,7 +220,10 @@ def simulate_shock(
             "income_replacement_pct": replacement,
             "household_bills_increase_pct": bills_increase,
             "one_off_cost": one_off,
-            "extra_monthly_spending": extra_monthly
+            "one_off_months_of_spending": one_off_k,
+            "extra_monthly_spending": extra_monthly,
+            "spending_cut_monthly": cut,
+            "duration_months": duration_months
         },
 
         "after_shock": {
@@ -193,7 +234,10 @@ def simulate_shock(
             "monthly_shortfall": max(monthly_gap, 0.0),
             "runway_months": runway,
             "runway_display": runway_display,
-            "survives_six_months": survives_six_months
+            "survives_six_months": survives_six_months,
+            "target_months": target,
+            "survives_target": survives_target,
+            "verdict": verdict
         },
 
         "forecast": forecast

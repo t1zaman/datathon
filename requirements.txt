@@ -1,2 +1,7 @@
+uvicorn
 pandas
 fastapi[standard]
+streamlit
+scikit-learn
+matplotlib
+google-genai

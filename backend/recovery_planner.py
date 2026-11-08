@@ -122,16 +122,43 @@ def build_recovery_plan(
             "actually adjustable before treating this as an achievable plan."
         )
 
-    # Illustrate one possible split; it is not a guarantee of feasibility.
+    # Ground the backup plan in the customer's OWN adjustable spending:
+    # cut discretionary spending (card, cash withdrawals, other transfers) first,
+    # and only then point to bank support for whatever is left.
+    discretionary = max(0.0, _number(customer.get("discretionary_spending", 0.0),
+                                     "discretionary_spending"))
     split = None
-    if monthly_adjustment_needed is not None:
-        spending_cut = _round_up_cents(monthly_adjustment_needed / 2)
+    actions = []
+    if monthly_adjustment_needed is not None and monthly_adjustment_needed > 0:
+        cut = min(monthly_adjustment_needed, discretionary)
+        remaining = max(0.0, monthly_adjustment_needed - cut)
         split = {
-            "monthly_spending_reduction": spending_cut,
-            "monthly_extra_income": round(
-                max(0.0, monthly_adjustment_needed - spending_cut), 2
-            ),
+            "monthly_spending_reduction": _round_up_cents(cut),
+            "share_of_discretionary": round(cut / discretionary, 3) if discretionary else None,
+            "still_needed_monthly": _round_up_cents(remaining),
         }
+        actions.append(
+            f"Cut ${cut:,.0f}/month of discretionary spending "
+            f"({(cut / discretionary if discretionary else 0):.0%} of card, cash and other transfers)."
+        )
+        if remaining > 0:
+            loan = _number(customer.get("loan_payment", 0.0), "loan_payment")
+            actions.append(
+                f"Still ${remaining:,.0f}/month short: contact the bank early about a payment "
+                f"deferral" + (f" on the ${loan:,.0f}/month loan" if loan else "")
+                + " or a line of credit."
+            )
+    elif monthly_adjustment_needed is None:
+        actions.append(
+            f"The one-off cost wipes out the buffer: spread it with a payment plan "
+            f"instead of paying ${-shock_buffer + buffer:,.0f} upfront."
+        )
+    else:
+        actions.append("Buffer covers the shock: pause emergency-fund saving while it lasts "
+                       "and pay essentials first.")
+    if _number(simulation.get("shock_inputs", {}).get("income_replacement_pct", 100),
+               "income_replacement_pct") < 100:
+        actions.insert(0, "Apply for EI right away.")
 
     return {
         "account_id": account_id,
@@ -156,6 +183,7 @@ def build_recovery_plan(
             "status": backup_status,
             "minimum_monthly_adjustment_needed": monthly_adjustment_needed,
             "example_combination": split,
+            "actions": actions,
             "additional_upfront_funds_if_no_monthly_adjustment": upfront_needed,
             "explanation": message,
         },
@@ -164,8 +192,8 @@ def build_recovery_plan(
             "and cash withdrawals; it is a planning estimate, not verified essential spending.",
             "Buffer is based on historical average daily bank balances and may not "
             "equal accessible cash savings.",
-            "Income boosts and spending reductions are numerical possibilities, "
-            "not confirmed options for this customer.",
+            "Spending reductions come from the customer's own discretionary categories "
+            "(card, cash withdrawals, unlabelled transfers); some may still be essential.",
             "The backup plan assumes the shock persists at a constant monthly rate."
         ],
     }

@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1D1D1F">
+<title>Squirrel Away · Get winterproof before the shock hits</title>
+<link rel="icon" href="/assets/hazel-happy-sm.png">
+<link rel="alternate icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐿️</text></svg>">
+<style>
+  @font-face{font-family:"Fraunces";font-weight:700;font-style:normal;font-display:swap;src:url(/assets/fonts/fraunces-latin-700-normal.woff2) format("woff2")}
+  @font-face{font-family:"Fraunces";font-weight:800;font-style:normal;font-display:swap;src:url(/assets/fonts/fraunces-latin-800-normal.woff2) format("woff2")}
+  @font-face{font-family:"Nunito";font-weight:400;font-style:normal;font-display:swap;src:url(/assets/fonts/nunito-latin-400-normal.woff2) format("woff2")}
+  @font-face{font-family:"Nunito";font-weight:600;font-style:normal;font-display:swap;src:url(/assets/fonts/nunito-latin-600-normal.woff2) format("woff2")}
+  @font-face{font-family:"Nunito";font-weight:700;font-style:normal;font-display:swap;src:url(/assets/fonts/nunito-latin-700-normal.woff2) format("woff2")}
+  @font-face{font-family:"Nunito";font-weight:800;font-style:normal;font-display:swap;src:url(/assets/fonts/nunito-latin-800-normal.woff2) format("woff2")}
+  :root{
+    --bg:#FCF6EE; --card:#FFFDFA; --ink:#2B1A12; --muted:#6E5E54; --line:#EFE3D4; --brown:#8A7468; --brown-dk:#3A2318;
+    --brand:#CF5409; --brand-ink:#9C3F07; --brand-soft:#FFE6D2; --peach:#FFF0E2;
+    --good:#1F7A4C; --good-soft:#E3F3E8; --warn:#8A5A00; --warn-soft:#FFF1C9; --warn-line:#EBCB6B;
+    --bad:#C0272D; --bad-soft:#FDE4E3; --bad-line:#F2B8B8; --track:#F3E9DE; --grey:#A79C94;
+    --serif:"Fraunces",Georgia,"Times New Roman",serif; --r:28px;
+    --shadow:0 1px 2px rgba(58,35,24,.05),0 10px 30px rgba(58,35,24,.07);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;font-family:"Nunito",ui-rounded,"SF Pro Rounded",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.45}
+  :focus-visible{outline:3px solid var(--brand);outline-offset:2px;border-radius:10px}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .serif{font-family:var(--serif)}
+
+  header{max-width:1440px;margin:0 auto;padding:22px clamp(16px,4vw,56px) 8px;display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:14px}
+  .brand img{width:64px;height:64px;object-fit:contain}
+  .brand b{display:block;font-family:var(--serif);font-weight:800;font-size:clamp(26px,3vw,34px);line-height:1.05;color:var(--brown-dk)}
+  .brand small{display:block;color:var(--muted);font-size:clamp(14px,1.4vw,17px)}
+  .acct{display:grid;grid-template-columns:auto auto auto;grid-template-rows:auto auto;column-gap:10px;align-items:center}
+  .acct label{grid-column:1 / -1;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:6px}
+  .acct input{width:170px;min-height:52px;padding:8px 18px;border-radius:99px;border:1.5px solid var(--line);background:#fff;font-size:20px;font-weight:700;font-family:ui-monospace,Menlo,monospace;color:var(--ink)}
+  button{cursor:pointer;border:0;border-radius:99px;min-height:44px;padding:10px 18px;font-weight:800;font-size:15px;font-family:inherit}
+  .btn{background:var(--brand);color:#fff;box-shadow:0 6px 16px rgba(207,84,9,.25)}
+  .btn:hover{filter:brightness(1.06)}
+  .btn-dark{background:var(--brown-dk);color:#fff;min-height:52px;padding:10px 26px;font-size:18px}
+  .btn-ghost{background:#fff;border:1.5px solid var(--line);min-width:52px;min-height:52px;font-size:20px}
+
+  main{max-width:1440px;margin:0 auto;padding:14px clamp(12px,4vw,56px) 110px;display:grid;gap:22px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:clamp(18px,2.2vw,30px);box-shadow:var(--shadow)}
+  h2.title{font-family:var(--serif);font-weight:800;font-size:clamp(22px,2.2vw,28px);margin:0 0 16px;color:var(--ink);display:flex;align-items:center;gap:10px}
+  h2.title small{font-size:.62em;font-weight:700;color:var(--muted)}
+  h2.big{font-family:var(--serif);font-weight:800;font-size:clamp(26px,2.8vw,36px);margin:10px 0 2px}
+  .kicker{font-size:14px;letter-spacing:.08em;text-transform:uppercase;font-weight:800;margin:0 0 10px}
+  .kicker.g{color:var(--good)} .kicker.r{color:var(--bad)}
+
+  /* twist */
+  .twist textarea{width:100%;min-height:150px;border:1.5px solid var(--line);border-radius:22px;padding:16px 18px;font:inherit;font-size:clamp(16px,1.5vw,19px);resize:vertical;background:#fff;color:var(--ink)}
+  .twist textarea:focus{border-color:var(--brand);outline:none}
+  #read{width:100%;margin-top:18px;min-height:60px;font-size:20px}
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+  .chip{background:#fff;color:var(--ink);font-size:16px;font-weight:700;padding:10px 16px;border-radius:99px;border:1.5px solid var(--line);min-height:46px;box-shadow:none}
+  .chip[aria-pressed=true]{background:var(--brand-soft);border-color:#F1A06A}
+  .parsed{font-size:15px;color:var(--good);margin-top:14px;min-height:20px;font-weight:600}
+  details.tune{margin-top:16px}
+  details.tune summary{cursor:pointer;font-weight:800;font-size:17px;list-style:none;display:flex;justify-content:space-between;align-items:center;background:var(--track);border:1px solid var(--line);border-radius:99px;padding:14px 22px;min-height:52px}
+  details.tune summary::-webkit-details-marker{display:none}
+  details.tune summary:after{content:"▾";font-size:14px;transition:transform .2s} details.tune[open] summary:after{transform:rotate(180deg)}
+  .ctls{display:grid;grid-template-columns:1fr;gap:14px;margin-top:16px;padding:0 6px}
+  .ctl label{display:flex;justify-content:space-between;font-size:14.5px;color:var(--muted);gap:8px;font-weight:600}
+  .ctl label b{color:var(--ink);white-space:nowrap}
+  .ctl input[type=range]{width:100%;accent-color:var(--brand);height:28px}
+  .ctl input[type=number]{width:100%;min-height:44px;padding:8px 14px;border:1.5px solid var(--line);border-radius:14px;font:inherit;background:#fff}
+
+  /* result */
+  .result{background:radial-gradient(120% 70% at 0% 0%,#FFE7CF 0%,rgba(255,240,226,.6) 35%,var(--card) 70%)}
+  .coach{display:flex;gap:18px;align-items:center}
+  .coach img.hazel{width:clamp(110px,12vw,170px);height:clamp(110px,12vw,170px);flex:none;object-fit:contain}
+  .bubble{position:relative;background:#fff;border:1px solid var(--line);border-radius:26px;padding:20px 24px;font-size:clamp(16px,1.5vw,20px);line-height:1.5;flex:1;box-shadow:var(--shadow)}
+  .bubble:before{content:"";position:absolute;left:-10px;top:50%;width:18px;height:18px;background:#fff;border-left:1px solid var(--line);border-bottom:1px solid var(--line);transform:translateY(-50%) rotate(45deg)}
+  .bubble small{display:block;margin-top:6px;color:var(--muted);font-size:14px}
+  .rw{margin:22px 0 4px;display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+  .rw .big{font-family:var(--serif);font-weight:800;font-size:clamp(64px,8vw,104px);line-height:.95;color:var(--brown-dk);font-variant-numeric:tabular-nums}
+  .rw .unit{font-family:var(--serif);font-weight:700;font-size:clamp(22px,2.4vw,32px);color:#6B4A3A}
+  .pill{display:inline-flex;align-items:center;gap:6px;font-size:17px;font-weight:800;padding:7px 16px;border-radius:99px;border:1.5px solid}
+  .s-good{background:var(--good-soft);color:var(--good);border-color:#9FD3B5}
+  .s-warn{background:var(--warn-soft);color:var(--warn);border-color:var(--warn-line)}
+  .s-bad{background:var(--bad-soft);color:var(--bad);border-color:var(--bad-line)}
+  .acorns{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+  .acorns svg{width:clamp(30px,3vw,42px);height:auto}
+  .acorn-cap{font-size:17px;color:var(--muted);margin-top:8px}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:24px}
+  .stat{background:#fff;border:1px solid var(--line);border-radius:22px;padding:16px 18px}
+  .stat small{display:block;font-size:13.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+  .stat strong{display:block;font-family:var(--serif);font-weight:800;font-size:clamp(24px,2.3vw,32px);margin-top:4px;font-variant-numeric:tabular-nums;color:var(--ink)}
+  .stat strong.red{color:var(--bad)}
+  .stat .d{font-size:14px;color:var(--muted)}
+  .kpis .stat small{text-transform:none;letter-spacing:0;font-size:15px}
+  .chart-card{margin-top:22px;background:#fff;border:1px solid var(--line);border-radius:24px;padding:20px 22px}
+  .chart-card h3{font-family:var(--serif);font-weight:800;font-size:clamp(19px,1.8vw,24px);margin:0 0 8px}
+  .chart{width:100%;height:270px;display:block}
+  .legend{display:flex;flex-wrap:wrap;gap:20px;font-size:16px;color:var(--muted);margin-top:8px}
+  .legend i{display:inline-block;width:26px;height:5px;vertical-align:middle;margin-right:8px;border-radius:3px}
+  .legend i.dash{height:0;border-top:3px dashed var(--bad);background:none!important}
+  .legend i.dot{width:13px;height:13px;border-radius:99px}
+
+  /* customer */
+  .kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+  .kpis .stat{border-radius:26px;padding:18px 22px;box-shadow:var(--shadow)}
+  .meta{font-size:clamp(15px,1.3vw,18px);color:var(--muted);margin-top:14px}
+  .warns{display:grid;gap:14px;margin-top:18px}
+  .warn{display:flex;gap:14px;align-items:flex-start;padding:18px 22px;border-radius:24px;font-size:clamp(15px,1.3vw,18px);line-height:1.45;border:1.5px solid}
+  .warn.high{background:var(--bad-soft);border-color:var(--bad-line)} .warn.high b{color:var(--bad)}
+  .warn.medium{background:var(--warn-soft);border-color:var(--warn-line)} .warn.medium b{color:var(--warn)}
+  .warn.info{background:#EEF3FA;border-color:#C8D7EA} .warn.info b{color:#24456b}
+  .warn .i{font-size:22px;flex:none;line-height:1.2}
+
+  /* plans */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .plan .goalnum{font-family:var(--serif);font-weight:800;font-size:clamp(32px,3.4vw,46px);color:var(--ink)}
+  .plan .goalunit{font-family:var(--serif);font-weight:700;font-size:clamp(20px,2vw,26px);color:#6B4A3A}
+  .plan p{font-size:clamp(15px,1.3vw,18px);margin:4px 0 0;color:var(--muted)}
+  .plan ul{padding-left:0;list-style:none;margin:14px 0 0}
+  .plan li{display:flex;gap:12px;padding:10px 0;font-size:clamp(15px,1.3vw,18px)}
+  .plan li .ico{flex:none;font-size:20px;line-height:1.3}
+  .bar{height:16px;background:var(--track);border-radius:99px;overflow:hidden;margin:16px 0 6px}
+  .bar div{height:100%;background:var(--good);border-radius:99px;transition:width .4s}
+  .bar-cap{text-align:right;color:var(--good);font-weight:800;font-size:16px}
+
+  /* breakdown */
+  .bd{display:grid;grid-template-columns:minmax(130px,260px) 1fr 90px;gap:16px;align-items:center;font-size:clamp(15px,1.3vw,18px);margin:12px 0}
+  .bd .track{height:22px;background:var(--track);border-radius:99px;overflow:hidden}
+  .bd .fill{height:100%;border-radius:99px;background:var(--grey)}
+  .bd .fill.disc{background:var(--brand)}
+  .bd span:last-child{text-align:right;font-family:ui-monospace,Menlo,monospace;font-weight:700}
+  details.math{margin-top:16px} details.math summary{cursor:pointer;font-weight:800;font-size:17px;list-style:none;background:var(--track);border:1px solid var(--line);border-radius:99px;padding:14px 22px}
+  details.math summary::-webkit-details-marker{display:none}
+  pre{background:var(--track);padding:14px;border-radius:16px;font-size:13.5px;overflow:auto;white-space:pre-wrap}
+  .err{background:var(--bad-soft);color:var(--bad);padding:14px 18px;border-radius:18px;display:none;font-weight:700}
+  .note{font-size:13px;color:var(--muted);margin-top:12px}
+  footer{font-size:14px;color:var(--muted);text-align:center;padding:10px 16px 40px}
+
+  .mood-good .hazel{animation:bob 2.6s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+  .mood-bad .hazel{animation:shiver .5s ease-in-out 2}
+  @keyframes shiver{0%,100%{transform:translateX(0)}25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+  /* Ask Hazel chat */
+  .fab{position:fixed;right:max(20px,env(safe-area-inset-right));bottom:max(20px,env(safe-area-inset-bottom));z-index:20;display:flex;align-items:center;gap:10px;background:var(--brand);color:#fff;border-radius:99px;padding:8px 24px 8px 8px;box-shadow:0 10px 28px rgba(207,84,9,.35);min-height:64px;font-size:20px}
+  .fab img{width:50px;height:50px;background:#fff;border-radius:99px;object-fit:contain}
+  .chat{position:fixed;right:20px;bottom:96px;z-index:30;width:min(420px,calc(100vw - 24px));height:min(620px,calc(100vh - 130px));background:var(--card);border:1px solid var(--line);border-radius:26px;box-shadow:0 18px 50px rgba(58,35,24,.25);display:none;flex-direction:column;overflow:hidden}
+  .chat.open{display:flex}
+  .chat-h{display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--brown-dk);color:#fff}
+  .chat-h img{width:40px;height:40px;background:#fff;border-radius:99px;object-fit:contain}
+  .chat-h b{display:block;font-family:var(--serif)} .chat-h small{color:#E8D9CC;font-size:12.5px}
+  .chat-h button{margin-left:auto;background:transparent;color:#fff;font-size:24px;min-width:44px;padding:0}
+  .msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;background:var(--bg)}
+  .msg{max-width:88%;padding:11px 14px;border-radius:18px;font-size:15px;line-height:1.45;white-space:pre-wrap}
+  .msg.user{align-self:flex-end;background:var(--brand);color:#fff;border-bottom-right-radius:5px}
+  .msg.bot{align-self:flex-start;background:#fff;border:1px solid var(--line);border-bottom-left-radius:5px}
+  .msg .wi{margin-top:8px;padding:9px 11px;border-radius:12px;background:var(--brand-soft);font-size:13.5px}
+  .msg .wi button{margin-top:6px;min-height:34px;padding:6px 12px;font-size:13px;background:var(--brand);color:#fff}
+  .msg .src{display:block;font-size:11px;color:var(--muted);margin-top:6px}
+  .typing{align-self:flex-start;color:var(--muted);font-size:13px}
+  .sugg{display:flex;gap:6px;overflow-x:auto;padding:8px 12px;border-top:1px solid var(--line);background:#fff}
+  .sugg button{flex:none;background:var(--brand-soft);color:var(--brand-ink);font-size:13px;min-height:34px;padding:6px 12px}
+  .chat form{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);background:#fff}
+  .chat input{flex:1;min-height:44px;border:1.5px solid var(--line);border-radius:14px;padding:8px 12px;font:inherit;font-size:16px}
+
+  .mini{display:none}
+  @media (min-width:1100px){
+    .stage{display:grid;grid-template-columns:minmax(360px,.72fr) 1fr;gap:22px;align-items:start}
+    .twist{position:sticky;top:16px}
+  }
+  @media (max-width:1099px){ .stage{display:grid;gap:22px} .kpis{grid-template-columns:repeat(3,1fr)} }
+  @media (max-width:760px){
+    .stats{grid-template-columns:1fr 1fr}
+    .two{grid-template-columns:1fr}
+    .kpis{grid-template-columns:1fr 1fr}
+  }
+  @media (max-width:640px){
+    header{padding-top:max(14px,env(safe-area-inset-top))}
+    .brand img{width:52px;height:52px}
+    .acct{width:100%;grid-template-columns:1fr auto auto}
+    .acct input{width:100%}
+    .coach{align-items:flex-end}
+    .bubble:before{top:auto;bottom:24px;transform:rotate(45deg)}
+    .twist textarea{min-height:110px}
+    .chart{height:220px}
+    .bd{grid-template-columns:118px 1fr 70px;gap:10px}
+    .bd .track{height:14px}
+    .fab span{display:none} .fab{padding:7px}
+    .chat{right:0;left:0;bottom:0;width:100%;height:88vh;border-radius:24px 24px 0 0}
+    .mini{display:flex;position:sticky;top:0;z-index:5;background:var(--brown-dk);color:#fff;padding:10px 16px;gap:10px;align-items:center;justify-content:space-between;font-size:15px}
+    .mini b{font-size:18px;font-family:var(--serif)}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <img src="/assets/hazel-happy-sm.png" alt="" aria-hidden="true">
+    <div><b>Squirrel Away</b><small>Get winterproof before the shock hits</small></div>
+  </div>
+  <form class="acct" id="acctForm" onsubmit="return false">
+    <label for="acct">Customer</label>
+    <input id="acct" type="number" inputmode="numeric" placeholder="account_id">
+    <button class="btn-dark" id="go" type="submit">Load</button>
+    <button class="btn-ghost" id="rand" type="button" aria-label="Random customer" title="Random customer">🎲</button>
+  </form>
+</header>
+<div class="mini" id="mini" aria-hidden="true"><span id="miniTxt">–</span><b id="miniRw">–</b></div>
+
+<main>
+  <div class="err" id="err" role="alert"></div>
+
+  <div class="stage">
+  <section class="card twist" aria-labelledby="t-twist">
+    <h2 class="title" id="t-twist"><span aria-hidden="true">🃏</span>Twist card</h2>
+    <label for="card" class="sr">Twist card text</label>
+    <textarea id="card" placeholder="e.g. They lose their job (EI at 55%) and their household bills go up 15% in the same month."></textarea>
+    <button class="btn" id="read" type="button">Run twist ↵</button>
+    <div class="chips" id="presets" role="group" aria-label="Example shocks"></div>
+    <div class="parsed" id="parsed" aria-live="polite"></div>
+    <details class="tune" id="tune">
+      <summary>Fine-tune the shock</summary>
+      <div class="ctls">
+        <div class="ctl"><label for="inc">Income kept (EI = 55%) <b id="v_inc"></b></label><input id="inc" type="range" min="0" max="100" step="5"></div>
+        <div class="ctl"><label for="bills">Household bills up <b id="v_bills"></b></label><input id="bills" type="range" min="0" max="100" step="5"></div>
+        <div class="ctl"><label for="dur">Shock lasts <b id="v_dur"></b></label><input id="dur" type="range" min="0" max="24" step="1"></div>
+        <div class="ctl"><label for="k">One-off cost (× a month of spending) <b id="v_k"></b></label><input id="k" type="range" min="0" max="6" step="0.25"></div>
+        <div class="ctl"><label for="oneoff">One-off cost ($)</label><input id="oneoff" type="number" min="0" step="100" inputmode="numeric"></div>
+        <div class="ctl"><label for="extra">Extra monthly spending ($)</label><input id="extra" type="number" min="0" step="50" inputmode="numeric"></div>
+        <div class="ctl"><label for="cut">What-if: cut spending ($/month)</label><input id="cut" type="number" min="0" step="50" inputmode="numeric"></div>
+        <div class="ctl"><label for="fund">Emergency fund goal <b id="v_fund"></b></label><input id="fund" type="range" min="1" max="12" step="1"></div>
+      </div>
+    </details>
+  </section>
+
+  <section class="card result" aria-label="Result" id="resultCard">
+    <div class="coach">
+      <img class="hazel" id="hazelLive" src="/assets/hazel-happy.png" alt="Hazel the squirrel, looking happy">
+      <div class="bubble" aria-live="polite"><span id="say">Load a customer to start.</span></div>
+    </div>
+    <div class="rw"><span class="big" id="runway">–</span><span class="unit" id="runwayUnit">months of savings</span></div>
+    <span class="pill s-good" id="status">–</span>
+    <div class="acorns" id="acorns" aria-hidden="true"></div>
+    <div class="acorn-cap" id="acornCap"></div>
+    <div class="stats" id="shockStats"></div>
+    <div class="chart-card">
+      <h3 id="chartTitle">Projected savings · next 12 months</h3>
+      <svg class="chart" id="chart" role="img" aria-label="Projected savings by month"></svg>
+      <div class="legend"><span><i style="background:var(--grey)"></i>No shock</span><span><i style="background:var(--brand)"></i>With this shock</span><span><i class="dash"></i>$0 line</span></div>
+    </div>
+  </section>
+  </div>
+
+  <section aria-labelledby="t-cust">
+    <h2 class="big" id="t-cust">Know the customer</h2>
+    <div class="kpis" id="kpis" style="margin-top:16px"></div>
+    <div class="meta" id="meta"></div>
+    <div class="warns" id="warns" aria-live="polite"></div>
+  </section>
+
+  <section class="two">
+    <div class="card plan" aria-labelledby="t-goal">
+      <p class="kicker g" id="t-goal">Goal plan · build the stash</p>
+      <div id="goal"></div>
+    </div>
+    <div class="card plan" aria-labelledby="t-back">
+      <p class="kicker r" id="t-back">Backup plan · if it happens</p>
+      <div id="backup"></div>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="t-bd">
+    <h2 class="title" id="t-bd">Where the money goes <small>(typical month)</small></h2>
+    <div class="legend" style="margin:-6px 0 8px"><span><i class="dot" style="background:var(--brand)"></i>Flexible (can be cut)</span><span><i class="dot" style="background:var(--grey)"></i>Fixed</span></div>
+    <div id="breakdown"></div>
+    <details class="math"><summary>Show the math (judges' formula)</summary><pre id="math"></pre></details>
+    <div class="note" id="notes"></div>
+  </section>
+</main>
+<button class="fab" id="fab" type="button" aria-controls="chat" aria-expanded="false"><img src="/assets/hazel-happy-sm.png" alt="" aria-hidden="true"><span><b>Ask Hazel</b></span></button>
+<section class="chat" id="chat" role="dialog" aria-label="Ask Hazel chat">
+  <div class="chat-h"><img src="/assets/hazel-happy-sm.png" alt="" aria-hidden="true"><div><b>Ask Hazel</b><small id="chatSub">About this customer · any language</small></div><button type="button" id="chatClose" aria-label="Close chat">×</button></div>
+  <div class="msgs" id="msgs" aria-live="polite"></div>
+  <div class="sugg" id="sugg"></div>
+  <form id="chatForm"><label for="chatIn" class="sr">Message</label><input id="chatIn" autocomplete="off" placeholder="Ask a question or a what-if…"><button class="btn" type="submit">Send</button></form>
+</section>
+<footer>Data: PKDD'99 Financial dataset (CTU Prague), anonymized; amounts in CAD. EI rate: Government of Canada. Planning estimates, not financial advice.</footer>
+
+
+
+<script>
+const API = location.origin.startsWith("file") ? "http://127.0.0.1:8000" : location.origin;
+const $ = id => document.getElementById(id);
+const money = v => (v < 0 ? "−$" : "$") + Math.abs(v).toLocaleString("en-CA", {maximumFractionDigits: 0});
+const PRESETS = {
+  "😟 Laid off · EI 55% · 6 mo": {inc:55, bills:0, k:0, oneoff:0, extra:0, dur:6},
+  "🔥 Furnace dies (1 month)": {inc:100, bills:0, k:1, oneoff:0, extra:0, dur:0},
+  "📈 EI 55% + bills +15%": {inc:55, bills:15, k:0, oneoff:0, extra:0, dur:0},
+  "🙂 No shock": {inc:100, bills:0, k:0, oneoff:0, extra:0, dur:0},
+};
+const LABELS = {household_bills:"Household bills", insurance:"Insurance", loan_payments:"Loan payments", bank_fees:"Bank fees",
+  card_withdrawals:"Card spending", cash_withdrawals_genuine:"Cash withdrawals", transfers_out_other:"Other transfers out"};
+const DISC = ["card_withdrawals","cash_withdrawals_genuine","transfers_out_other"];
+let shockLabel = Object.keys(PRESETS)[0];
+
+function setShock(s, label){
+  for (const k of ["inc","bills","k","oneoff","extra","dur"]) $(k).value = s[k];
+  $("cut").value = s.cut || 0;
+  shockLabel = label || "Custom shock"; syncLabels(); markChip();
+}
+function markChip(){ document.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", c.textContent === shockLabel)); }
+function syncLabels(){
+  $("v_inc").textContent = $("inc").value + "%";
+  $("v_bills").textContent = "+" + $("bills").value + "%";
+  $("v_k").textContent = $("k").value + "×";
+  $("v_dur").textContent = +$("dur").value ? $("dur").value + " months" : "not stated";
+  $("v_fund").textContent = $("fund").value + " months";
+}
+function body(){
+  const dur = +$("dur").value;
+  return {income_replacement_pct:+$("inc").value, household_bills_increase_pct:+$("bills").value,
+    one_off_cost:+$("oneoff").value || 0, one_off_months_of_spending:+$("k").value,
+    extra_monthly_spending:+$("extra").value || 0, duration_months: dur || null,
+    spending_cut_monthly:+$("cut").value || 0,
+    projection_months: Math.max(12, (dur || 6) + 6),
+    emergency_fund_months:+$("fund").value, survival_target_months: dur || 6};
+}
+async function api(path, b){
+  const r = await fetch(API + path, b ? {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(b)} : {});
+  const j = await r.json();
+  if (!r.ok) throw new Error(typeof j.detail === "string" ? j.detail : JSON.stringify(j.detail || r.statusText));
+  return j;
+}
+const stat = (label, value, delta, good, red) =>
+  `<div class="stat"><small>${label}</small><strong class="${red ? "red" : ""}">${value}</strong>${delta === undefined ? "" : `<span class="d">${delta}</span>`}</div>`;
+
+let timer;
+function schedule(){ syncLabels(); clearTimeout(timer); timer = setTimeout(run, 150); }
+async function run(){
+  const id = $("acct").value; if (!id) return;
+  $("err").style.display = "none";
+  try{
+    const b = body();
+    const [c, sim, plan] = await Promise.all([api(`/api/accounts/${id}/summary`), api(`/api/accounts/${id}/simulate`, b), api(`/api/accounts/${id}/recovery`, b)]);
+    render(c, sim, plan);
+  }catch(e){ $("err").textContent = "⚠ " + e.message; $("err").style.display = "block"; }
+}
+
+function mood(a, buffer){
+  if (buffer <= 0) return {cls:"bad", pill:"⚠️ No savings buffer", face:"bad"};
+  if (a.buffer_left <= 0) return {cls:"bad", pill:"⚠️ Can't absorb it", face:"bad"};
+  if (a.runway_months === null) return {cls:"good", pill:"❄️ Winterproof", face:"good"};
+  if (a.survives_target) return {cls:"good", pill:"❄️ Winterproof", face:"good"};
+  if (a.runway_months >= a.target_months / 2) return {cls:"warn", pill:"⏳ Getting there", face:"warn"};
+  return {cls:"bad", pill:"⚠️ Not ready for winter", face:"bad"};
+}
+const FACES = {good:["happy","looking happy"], warn:["worried","looking worried"], bad:["alarmed","alarmed, dropping her acorn"]};
+function setFace(face){
+  const img = $("hazelLive"), [f, alt] = FACES[face];
+  $("hazelLive").closest(".coach").className = "coach mood-" + face;
+  if (!img.src.endsWith(`hazel-${f}.png`)){ img.src = `/assets/hazel-${f}.png`; img.alt = "Hazel the squirrel, " + alt; }
+}
+["happy","worried","alarmed"].forEach(f => { const i = new Image(); i.src = `/assets/hazel-${f}.png`; });
+function hazelSays(c, a, plan){
+  const bp = plan.backup_plan, cut = bp.example_combination?.monthly_spending_reduction || 0;
+  const tgt = a.target_months, dur = +$("dur").value;
+  if (c.buffer <= 0) return `There's no stash to fall back on: their savings buffer is already ${money(c.buffer)}. First step: get back above $0 and start a small automatic saving habit.`;
+  if (a.buffer_left <= 0) return `This one-off costs more than the whole stash (${money(c.buffer)}). Spread it with a payment plan so the savings survive.`;
+  if (a.runway_months === null) return `Good news: even after this shock, income still covers spending. The stash isn't touched.`;
+  if (a.survives_target) return dur
+    ? `They make it. ${a.runway_months.toFixed(1)} months of savings for a ${dur}-month shock, with ${money(a.buffer_left - dur * a.monthly_gap)} left over.`
+    : `Savings last ${a.runway_months.toFixed(1)} months. That clears the 6-month safety line.`;
+  const short = `Savings run out after <b>${a.runway_months.toFixed(1)} months</b>` + (dur ? `, ${(tgt - a.runway_months).toFixed(1)} months before the shock ends.` : `, short of the 6-month safety line.`);
+  return short + (cut ? ` Cutting <b>${money(cut)}/month</b> of flexible spending stretches it to ${tgt} months.` : "");
+}
+function acorns(rw, target){
+  const n = Math.min(12, Math.max(1, target)), filled = rw === null ? n : Math.min(n, rw);
+  let s = "";
+  for (let i = 0; i < n; i++){
+    const f = Math.max(0, Math.min(1, filled - i)), id = "ac" + i;
+    s += `<svg viewBox="0 0 40 48"><defs><clipPath id="${id}"><rect x="0" y="${14 + 34 * (1 - f)}" width="40" height="48"/></clipPath></defs>
+      <path d="M20 13 C10 13 6 22 7 29 C8 38 15 45 20 46 C25 45 32 38 33 29 C34 22 30 13 20 13Z" fill="#EFE6DC"/>
+      <path d="M20 13 C10 13 6 22 7 29 C8 38 15 45 20 46 C25 45 32 38 33 29 C34 22 30 13 20 13Z" fill="#8E4F24" clip-path="url(#${id})"/>
+      <path d="M5 17 Q20 3 35 17 Q36 20 33 21 L7 21 Q4 20 5 17Z" fill="${f > 0 ? "#5A3218" : "#E3D8CC"}"/>
+      <path d="M20 7 Q21 2 25 1" stroke="${f > 0 ? "#5A3218" : "#D2C5B7"}" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>`;
+  }
+  $("acorns").innerHTML = s;
+  $("acornCap").textContent = rw === null ? `All ${n} months covered` : `${Math.min(rw, n).toFixed(1)} of ${n} months covered`;
+}
+
+function render(c, sim, plan){
+  const b = sim.before_shock, a = sim.after_shock, md = mood(a, b.buffer);
+  // result
+  $("status").className = "pill s-" + md.cls;
+  $("status").textContent = md.pill;
+  $("runway").textContent = a.runway_months === null ? "120+" : a.runway_months.toFixed(1);
+  $("runwayUnit").textContent = a.runway_months === null ? "no shortfall" : "months of savings";
+  acorns(a.runway_months, a.target_months);
+  setFace(md.face);
+  $("say").innerHTML = hazelSays(c, a, plan) +
+    (sim.shock_inputs.household_bills_increase_pct > 0 && c.household_bills === 0
+      ? ` <br><small>Note: this customer has no labelled household bills in the data, so the bills increase adds $0.</small>` : "");
+  $("shockStats").innerHTML =
+    stat("Money in", money(a.income), Math.abs(a.income - b.income) < 0.5 ? "no change" : money(a.income - b.income) + "/mo", a.income >= b.income) +
+    stat("Spending", money(a.spending), Math.abs(a.spending - b.spending) < 0.5 ? "no change" : (a.spending > b.spending ? "+" : "") + money(a.spending - b.spending) + "/mo", a.spending <= b.spending) +
+    stat("Stash after one-offs", money(a.buffer_left)) +
+    stat("Short each month", money(a.monthly_shortfall), undefined, undefined, a.monthly_shortfall > 0);
+  $("miniTxt").textContent = md.pill; $("miniRw").textContent = (a.runway_months === null ? "120+" : a.runway_months.toFixed(1)) + " mo";
+  drawChart(sim.forecast, sim.shock_inputs.duration_months);
+
+  // customer
+  const surplus = c.income - c.spending;
+  $("kpis").innerHTML =
+    stat("Typical money in (I)", money(c.income)) + stat("Typical spending (S)", money(c.spending)) +
+    stat("Fixed costs (F)", money(c.fixed_costs)) + stat("Savings buffer (B)", money(c.buffer)) +
+    stat("Loan payment (P)", money(c.loan_payment)) + stat("Runway today", b.runway_months === null ? "120+ mo" : b.runway_months + " mo");
+  $("meta").innerHTML = `Account ${c.account_id} · ${c.months_of_data} months of history (${c.first_month} → ${c.last_month}) · a typical month <b>${surplus >= 0 ? "saves " : "loses "}${money(Math.abs(surplus))}</b> · ${c.months_below_zero ?? 0} months dipped below $0`;
+
+  const w = (c.warnings || []).map(x => `<div class="warn ${x.level}"><span class="i">${x.level === "high" ? "🚩" : "⚠️"}</span><span><b>Early warning:</b> ${x.title}. ${x.why}</span></div>`);
+  if (c.income_type === "pension") w.push(`<div class="warn info"><span class="i">ℹ️</span><span><b>Mostly pension income:</b> a job-loss shock may not apply; try a bills or repair shock instead.</span></div>`);
+  $("warns").innerHTML = w.join("");
+
+  const flexNames = {cash_withdrawals_genuine:"cash withdrawals", card_withdrawals:"card spending", transfers_out_other:"other transfers out"};
+  const topFlex = Object.entries(c.spending_breakdown || {}).filter(([k, v]) => flexNames[k] && v > 0).sort((x, y) => y[1] - x[1])[0];
+  setSugg(["Why is the runway so short?", topFlex ? `What if they cut ${flexNames[topFlex[0]]} by 20%?` : "What if they cut $300 a month?", "What should they do first?", "What if rent goes up 10%?", "Explique le plan en français"]);
+
+  // goal plan
+  const ef = plan.emergency_fund, have = Math.max(0, ef.estimated_buffer), pct = Math.min(100, ef.target_amount ? have / ef.target_amount * 100 : 100);
+  let g = `<div><span class="goalnum">${money(ef.target_amount)}</span> <span class="goalunit">winter stash</span></div>
+    <p>${ef.target_months} months of typical spending. They have ${money(have)}.</p>
+    <div class="bar" role="progressbar" aria-label="Progress to goal" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${pct.toFixed(0)}"><div style="width:${pct}%"></div></div>
+    <div class="bar-cap">${pct.toFixed(0)}% there</div><ul>`;
+  if (ef.amount_still_needed <= 0) g += `<li><span class="ico">✅</span><span><b>Goal met.</b> Keep it parked as the emergency fund; extra savings can go to other goals.</span></li>`;
+  else if (ef.feasible_from_current_surplus) g += `<li><span class="ico">🔁</span><span>Auto-save <b>${money(ef.monthly_savings_needed)}/month</b> on payday.</span></li><li><span class="ico">🎯</span><span>Goal reached in <b>${ef.savings_build_months} months</b>, using money they already have left over.</span></li>`;
+  else if (ef.months_to_goal_at_current_surplus) g += `<li><span class="ico">🔁</span><span>Auto-save their whole ${money(ef.estimated_monthly_surplus)}/month surplus on payday.</span></li><li><span class="ico">🎯</span><span>Goal reached in <b>${ef.months_to_goal_at_current_surplus} months</b>. Faster if they trim flexible spending.</span></li>`;
+  else g += `<li><span class="ico">🎯</span><span>They spend <b>${money(-ef.estimated_monthly_surplus)}/month more</b> than comes in. Step one is closing that gap.</span></li><li><span class="ico">🔎</span><span>Their flexible spending is ${money(c.discretionary_spending)}/month: that's where the gap can close.</span></li>`;
+  $("goal").innerHTML = g + "</ul>";
+
+  // backup plan
+  const bp = plan.backup_plan;
+  const icon = t => /EI/.test(t) ? "📝" : /Cut/.test(t) ? "✂️" : /bank|deferral|credit/.test(t) ? "🏦" : /payment plan|spread/.test(t) ? "🧾" : "✓";
+  $("backup").innerHTML = `<h3 class="goalnum" style="margin:0;font-size:clamp(28px,3vw,42px)">${bp.status === "target_met" ? "Covered ✓" : bp.status === "upfront_funds_required" ? "Stash wiped out" : `Survive ${bp.target_survival_months} months`}</h3>
+    <ul>${bp.actions.map(t => `<li><span class="ico">${icon(t)}</span><span>${t}</span></li>`).join("")}</ul>`;
+
+  // breakdown
+  const bd = c.spending_breakdown || {}, max = Math.max(1, ...Object.values(bd));
+  $("breakdown").innerHTML = Object.entries(bd).sort((x, y) => y[1] - x[1]).map(([k, v]) =>
+    `<div class="bd"><span>${LABELS[k] || k}<span class="sr">${DISC.includes(k) ? " (flexible)" : " (fixed)"}</span></span><div class="track"><div class="fill ${DISC.includes(k) ? "disc" : ""}" style="width:${v > 0 ? Math.max(1.5, v / max * 100) : 0}%"></div></div><span>${money(v)}</span></div>`).join("");
+  $("math").textContent =
+`I = ${c.income.toFixed(2)}  S = ${c.spending.toFixed(2)}  B = ${c.buffer.toFixed(2)}  H = ${c.household_bills.toFixed(2)}  P = ${c.loan_payment.toFixed(2)}
+buffer_left = B − one-off = ${b.buffer.toFixed(2)} − ${sim.shock_inputs.one_off_cost.toFixed(2)} = ${a.buffer_left.toFixed(2)}
+gap = spending_after − income_after = ${a.spending.toFixed(2)} − ${a.income.toFixed(2)} = ${a.monthly_gap.toFixed(2)}
+runway = min(buffer_left ÷ gap, 120) = ${a.runway_display}`;
+  $("notes").textContent = plan.important_notes.join(" ");
+}
+
+let lastChart = null;
+function niceStep(range){ const raw = range / 4, mag = Math.pow(10, Math.floor(Math.log10(raw))), n = raw / mag;
+  return (n <= 1 ? 1 : n <= 2 ? 2 : n <= 2.5 ? 2.5 : n <= 5 ? 5 : 10) * mag; }
+function drawChart(fc, dur){
+  lastChart = [fc, dur];
+  $("chartTitle").textContent = `Projected savings · next ${fc[fc.length - 1].month} months`;
+  const svg = $("chart"), W = Math.max(300, svg.clientWidth || 900), H = svg.clientHeight || 240;
+  const narrow = W < 560, P = {l: narrow ? 52 : 66, r: 12, t: 16, b: 26};
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  const xs = fc.map(f => f.month), ys = fc.flatMap(f => [f.baseline_balance, f.shock_balance]).concat([0]);
+  let lo = Math.min(...ys), hi = Math.max(...ys); if (hi === lo) hi = lo + 1;
+  const step = niceStep(hi - lo); lo = Math.floor(lo / step) * step; hi = Math.ceil(hi / step) * step;
+  const X = m => P.l + (m - xs[0]) / (xs[xs.length - 1] - xs[0]) * (W - P.l - P.r);
+  const Y = v => P.t + (hi - v) / (hi - lo) * (H - P.t - P.b);
+  const short = v => Math.abs(v) >= 1000 ? (v < 0 ? "−$" : "$") + (Math.abs(v) / 1000).toFixed(Math.abs(v) % 1000 ? 1 : 0) + "k" : money(v);
+  const path = k => fc.map((f, i) => (i ? "L" : "M") + X(f.month).toFixed(1) + "," + Y(f[k]).toFixed(1)).join("");
+  let s = "";
+  for (let v = lo; v <= hi + 1e-6; v += step)
+    s += `<line x1="${P.l}" x2="${W - P.r}" y1="${Y(v)}" y2="${Y(v)}" stroke="#F1E8DE"/><text x="${P.l - 8}" y="${Y(v) + 4}" text-anchor="end" font-size="12" fill="#888">${short(v)}</text>`;
+  const every = narrow ? 6 : 3, last = xs[xs.length - 1];
+  for (const m of xs) if (m % every === 0 || m === last) {
+    if (m !== last && last - m < every / 2) continue;
+    s += `<text x="${X(m)}" y="${H - 6}" text-anchor="${m === 0 ? "start" : m === last ? "end" : "middle"}" font-size="12" fill="#888">${m === 0 ? "today" : (narrow ? "m" : "month ") + m}</text>`;
+  }
+  s += `<rect x="${P.l}" y="${Y(0)}" width="${W - P.l - P.r}" height="${Math.max(0, H - P.b - Y(0))}" fill="#F7C9C9" opacity=".55"/>`;
+  s += `<line x1="${P.l}" x2="${W - P.r}" y1="${Y(0)}" y2="${Y(0)}" stroke="#C0272D" stroke-dasharray="6 5" stroke-width="2"/>`;
+  if (dur && dur <= last) s += `<line x1="${X(dur)}" x2="${X(dur)}" y1="${P.t}" y2="${H - P.b}" stroke="#999" stroke-dasharray="2 4"/><text x="${X(dur) + 5}" y="${P.t + 2}" font-size="12" fill="#666">shock ends</text>`;
+  s += `<path d="${path("baseline_balance")}" fill="none" stroke="#A79C94" stroke-width="3" stroke-linecap="round"/>`;
+  s += `<path d="${path("shock_balance")}" fill="none" stroke="#CF5409" stroke-width="4" stroke-linecap="round"/>`;
+  const i = fc.findIndex(f => f.shock_balance < 0);
+  if (i > 0) { const f0 = fc[i - 1], f1 = fc[i], t = f0.shock_balance / (f0.shock_balance - f1.shock_balance), mx = f0.month + t;
+    const lx = X(mx), anchor = lx > W * .7 ? "end" : "start";
+    s += `<circle cx="${lx}" cy="${Y(0)}" r="6" fill="#C0272D" stroke="#fff" stroke-width="2"/><text x="${lx + (anchor === "end" ? -10 : 10)}" y="${Y(0) - 10}" text-anchor="${anchor}" font-size="13" font-weight="800" fill="#C0272D">savings gone · month ${mx.toFixed(1)}</text>`; }
+  svg.innerHTML = s;
+}
+addEventListener("resize", () => { if (lastChart) drawChart(...lastChart); });
+
+// wiring
+for (const name of Object.keys(PRESETS)){
+  const el = document.createElement("button"); el.type = "button"; el.className = "chip"; el.textContent = name;
+  el.onclick = () => { setShock(PRESETS[name], name); $("parsed").textContent = ""; run(); };
+  $("presets").appendChild(el);
+}
+for (const k of ["inc","bills","k","oneoff","extra","dur","cut","fund"]) $(k).addEventListener("input", () => { if (k !== "fund"){ shockLabel = "Custom shock"; markChip(); } schedule(); });
+$("go").onclick = run;
+$("read").onclick = async () => {
+  const text = $("card").value.trim(); if (!text) return;
+  try{
+    const r = await api("/api/twist/parse", {text}), s = r.shock;
+    setShock({inc:s.income_replacement_pct, bills:s.household_bills_increase_pct, k:s.one_off_months_of_spending,
+      oneoff:s.one_off_cost, extra:s.extra_monthly_spending, dur:s.duration_months || 0}, "“" + text.slice(0, 70) + (text.length > 70 ? "…" : "") + "”");
+    $("parsed").textContent = `✓ Read by ${r.parsed_by === "Gemini" ? "Gemini" : "Hazel"}: income ${s.income_replacement_pct}%, bills +${s.household_bills_increase_pct}%, ` +
+      `one-off ${s.one_off_months_of_spending ? s.one_off_months_of_spending + "× a month" : money(s.one_off_cost)}` +
+      (s.extra_monthly_spending ? `, +${money(s.extra_monthly_spending)}/mo` : "") + (s.duration_months ? `, ${s.duration_months} months` : "") + ". Edit in Fine-tune if needed.";
+    await run();
+    $("resultCard").scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block:"start"});
+  }catch(e){ $("err").textContent = "⚠ " + e.message; $("err").style.display = "block"; }
+};
+$("card").addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey){ e.preventDefault(); $("read").click(); } });
+$("rand").onclick = async () => { const r = await api("/api/accounts/random"); $("acct").value = r.account_id; run(); };
+
+// ---------------- Ask Hazel
+const history = [];
+const SUGG = ["Why is the runway so short?", "What if they cut card spending in half?", "What should they do first?", "What if rent goes up 10%?", "Explique le plan en français"];
+function addMsg(role, html, extra){
+  const d = document.createElement("div"); d.className = "msg " + role; d.innerHTML = html; if (extra) d.appendChild(extra);
+  $("msgs").appendChild(d); $("msgs").scrollTop = $("msgs").scrollHeight; return d;
+}
+function esc(t){ return t.replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c])); }
+async function ask(text){
+  if (!text.trim()) return;
+  if (!$("acct").value){ addMsg("bot", "Load a customer first, then ask me anything about them."); return; }
+  addMsg("user", esc(text)); $("chatIn").value = "";
+  const t = document.createElement("div"); t.className = "typing"; t.textContent = "Hazel is thinking…"; $("msgs").appendChild(t);
+  try{
+    const r = await api(`/api/accounts/${$("acct").value}/chat`, {message:text, history, shock: body()});
+    t.remove();
+    let extra = null;
+    if (r.whatif){
+      extra = document.createElement("div"); extra.className = "wi";
+      extra.innerHTML = `What-if runway: <b>${r.whatif.runway_display}</b>`;
+      const b = document.createElement("button"); b.type = "button"; b.textContent = "Show on dashboard";
+      b.onclick = () => { const s = r.whatif.shock;
+        setShock({inc:s.income_replacement_pct, bills:s.household_bills_increase_pct, k:s.one_off_months_of_spending, oneoff:s.one_off_cost,
+                  extra:s.extra_monthly_spending, dur:s.duration_months || 0, cut:s.spending_cut_monthly}, "What-if: " + text.slice(0, 50));
+        $("tune").open = true; run(); if (innerWidth < 641) closeChat(); };
+      extra.appendChild(document.createElement("br")); extra.appendChild(b);
+    }
+    const m = addMsg("bot", esc(r.reply), extra);
+    const src = document.createElement("span"); src.className = "src";
+    src.textContent = (r.mode === "Gemini" ? "Gemini" : "Hazel rules") + (r.whatif ? " · numbers computed by the engine" : ""); m.appendChild(src);
+    history.push({role:"user", text}, {role:"assistant", text:r.reply});
+  }catch(e){ t.remove(); addMsg("bot", "Sorry, I couldn't answer that: " + esc(e.message)); }
+}
+function openChat(){ $("chat").classList.add("open"); $("fab").setAttribute("aria-expanded", "true");
+  if (!$("msgs").children.length) addMsg("bot", `Hi! I'm Hazel 🐿️ Ask me about account ${$("acct").value || "…"}: why the numbers look the way they do, or any what-if. I'll run it through the engine so the math is real.`);
+  $("chatIn").focus(); }
+function closeChat(){ $("chat").classList.remove("open"); $("fab").setAttribute("aria-expanded", "false"); $("fab").focus(); }
+$("fab").onclick = () => $("chat").classList.contains("open") ? closeChat() : openChat();
+$("chatClose").onclick = closeChat;
+addEventListener("keydown", e => { if (e.key === "Escape" && $("chat").classList.contains("open")) closeChat(); });
+$("chatForm").onsubmit = e => { e.preventDefault(); ask($("chatIn").value); };
+function setSugg(list){ $("sugg").innerHTML = ""; for (const q of list){ const b = document.createElement("button"); b.type = "button"; b.textContent = q; b.onclick = () => ask(q); $("sugg").appendChild(b); } }
+setSugg(SUGG);
+$("go").addEventListener("click", () => { history.length = 0; $("msgs").innerHTML = ""; });
+
+if (matchMedia("(min-width: 1100px)").matches) $("tune").open = true;
+$("fund").value = 3; setShock(PRESETS[shockLabel], shockLabel);
+api("/api/accounts/random").then(r => { $("acct").value = r.account_id; run(); }).catch(() => {});
+</script>
+</body>
+</html>

@@ -12,7 +12,10 @@ def simulate_customer_shock(
     household_bills_increase_pct=0,
     one_off_cost=0,
     extra_monthly_spending=0,
-    projection_months=6
+    projection_months=6,
+    one_off_months_of_spending=0,
+    duration_months=None,
+    spending_cut_monthly=0
 ):
     # Get the customer's financial information
     customer = build_customer_summary(
@@ -26,7 +29,10 @@ def simulate_customer_shock(
         household_bills_increase_pct=household_bills_increase_pct,
         one_off_cost=one_off_cost,
         extra_monthly_spending=extra_monthly_spending,
-        projection_months=projection_months
+        projection_months=projection_months,
+        one_off_months_of_spending=one_off_months_of_spending,
+        duration_months=duration_months,
+        spending_cut_monthly=spending_cut_monthly
     )
 
     return result

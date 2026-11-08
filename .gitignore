@@ -1,5 +1,4 @@
-.venv/
+data/*.csv
 __pycache__/
+analysis/outputs/
 .env
-.DS_Store
-data/
