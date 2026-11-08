@@ -27,7 +27,8 @@ Full write-up, data checks and limits: **[FINDINGS.md](FINDINGS.md)** · Charts:
    Runway uses the track's exact formula and is checked against it on all 4,500 accounts.
 3. **Make a plan:** a "winter stash" emergency-fund goal and a backup plan built from the customer's own
    flexible spending.
-4. **Ask Hazel:** an AI chat (Gemini API) for questions and what-ifs, in any language.
+4. **Ask Hazel:** an AI chat (Gemini API) for questions and what-ifs. With Gemini on, it can reply in other
+   languages (tested in French); the rest of the app is in English.
    *Gemini interprets the question, our engine does the math*, so the AI never makes up numbers.
    A rule-based fallback keeps it working without a key or network.
 
@@ -43,7 +44,7 @@ Full write-up, data checks and limits: **[FINDINGS.md](FINDINGS.md)** · Charts:
 - **Warm orange palette.** Friendly and trustworthy, and it sits naturally next to a consumer bank's brand
   without copying anyone's logo or name.
 - **Accessible by design.** Status always has words and an icon, not colour alone; works by keyboard and on phones;
-  respects reduced-motion settings; Ask Hazel answers in any language.
+  respects reduced-motion settings; Ask Hazel can reply in other languages when Gemini is on.
 
 ---
 

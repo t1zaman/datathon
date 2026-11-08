@@ -24,7 +24,7 @@ default with cross-validated AUC 0.77.
   than their flexible spending (median: 21% of it).
 
 ## Impact (next step for Tangerine)
-- 212 customers without a loan have already dipped below $0, and 163 did so in 2025. Before they apply for credit,
+- 212 customers without a loan have already dipped below $0, 122 of them in 2025. Before they apply for credit,
   reach out with a winter-stash plan, not a loan.
 - Show the early-warning flag to advisors at loan time (built into the app: "Know the customer").
 
