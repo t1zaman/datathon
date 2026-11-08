@@ -1,0 +1,250 @@
+
+"""Financial Shock Simulator for AFTERSHOCK."""
+
+import math
+
+
+def _number(value, name):
+    # Check that the value is a valid number
+    try:
+        result = float(value)
+    except (TypeError, ValueError) as exc:
+        raise ValueError(f"{name} must be a number") from exc
+
+    if not math.isfinite(result):
+        raise ValueError(f"{name} must be a finite number")
+
+    return result
+
+
+def _runway(buffer_left, income, spending):
+    # Calculate monthly financial shortfall
+    gap = spending - income
+
+    # Follow the judges' runway formula
+    if buffer_left <= 0:
+        return 0.0, "0.0 months"
+
+    if gap <= 0:
+        return None, "No shortfall (120+)"
+
+    months = round(min(buffer_left / gap, 120), 1)
+
+    return months, f"{months:.1f} months"
+
+
+def simulate_shock(
+    customer,
+    income_replacement_pct=100,
+    household_bills_increase_pct=0,
+    one_off_cost=0,
+    extra_monthly_spending=0,
+    projection_months=6,
+):
+    # Check required customer information
+    required = (
+        "account_id",
+        "income",
+        "spending",
+        "buffer",
+        "household_bills"
+    )
+
+    missing = [
+        key for key in required
+        if key not in customer
+    ]
+
+    if missing:
+        raise ValueError(
+            f"Customer summary is missing: {', '.join(missing)}"
+        )
+
+    # Get financial information from customer summary
+    income = _number(customer["income"], "income")
+    spending = _number(customer["spending"], "spending")
+    buffer = _number(customer["buffer"], "buffer")
+    household_bills = _number(
+        customer["household_bills"], "household_bills"
+    )
+
+    # Get shock values
+    replacement = _number(
+        income_replacement_pct, "income_replacement_pct"
+    )
+
+    bills_increase = _number(
+        household_bills_increase_pct,
+        "household_bills_increase_pct"
+    )
+
+    one_off = _number(one_off_cost, "one_off_cost")
+
+    extra_monthly = _number(
+        extra_monthly_spending, "extra_monthly_spending"
+    )
+
+    # Validate inputs
+    if any(
+        value < 0
+        for value in (income, spending, household_bills)
+    ):
+        raise ValueError(
+            "Income, spending, and household bills cannot be negative"
+        )
+
+    if not 0 <= replacement <= 100:
+        raise ValueError(
+            "income_replacement_pct must be between 0 and 100"
+        )
+
+    if bills_increase < 0 or one_off < 0 or extra_monthly < 0:
+        raise ValueError(
+            "Bill increases and costs cannot be negative"
+        )
+
+    if (
+        not isinstance(projection_months, int)
+        or not 1 <= projection_months <= 120
+    ):
+        raise ValueError(
+            "projection_months must be an integer from 1 to 120"
+        )
+
+    # Calculate income after the shock
+    # Example: EI replaces 55% of normal income
+    income_after = income * (replacement / 100)
+
+    # Calculate spending after the shock
+    # Household bills are already included in spending
+    spending_after = (
+        spending
+        + household_bills * (bills_increase / 100)
+        + extra_monthly
+    )
+
+    # Deduct one-time emergency expenses from buffer
+    buffer_left = buffer - one_off
+
+    # Calculate monthly shortfall
+    monthly_gap = spending_after - income_after
+
+    # Calculate runway before the shock
+    original_runway, original_display = _runway(
+        buffer, income, spending
+    )
+
+    # Calculate runway after the shock
+    runway, runway_display = _runway(
+        buffer_left, income_after, spending_after
+    )
+
+    # Check if customer can survive six months
+    # Use unrounded values for accuracy
+    survives_six_months = (
+        buffer_left > 0
+        and (
+            monthly_gap <= 0
+            or buffer_left >= 6 * monthly_gap
+        )
+    )
+
+    # Generate projected balances for graphs
+    forecast = []
+
+    for month in range(projection_months + 1):
+        forecast.append({
+            "month": month,
+
+            "baseline_balance": (
+                buffer + month * (income - spending)
+            ),
+
+            "shock_balance": (
+                buffer_left
+                + month * (income_after - spending_after)
+            )
+        })
+
+    # Return results for the website
+    return {
+        "account_id": int(customer["account_id"]),
+
+        "before_shock": {
+            "income": income,
+            "spending": spending,
+            "buffer": buffer,
+            "runway_months": original_runway,
+            "runway_display": original_display
+        },
+
+        "shock_inputs": {
+            "income_replacement_pct": replacement,
+            "household_bills_increase_pct": bills_increase,
+            "one_off_cost": one_off,
+            "extra_monthly_spending": extra_monthly
+        },
+
+        "after_shock": {
+            "income": income_after,
+            "spending": spending_after,
+            "buffer_left": buffer_left,
+            "monthly_gap": monthly_gap,
+            "monthly_shortfall": max(monthly_gap, 0.0),
+            "runway_months": runway,
+            "runway_display": runway_display,
+            "survives_six_months": survives_six_months
+        },
+
+        "forecast": forecast
+    }
+
+
+if __name__ == "__main__":
+    # Sample data for testing only
+    sample_customer = {
+        "account_id": 1,
+        "income": 4000,
+        "fixed_costs": 1200,
+        "spending": 3000,
+        "buffer": 5000,
+        "household_bills": 1000,
+        "loan_payment": 0
+    }
+
+    # Simulate job loss, higher bills, and emergency cost
+    result = simulate_shock(
+        sample_customer,
+        income_replacement_pct=55,
+        household_bills_increase_pct=15,
+        one_off_cost=1000
+    )
+
+    print(
+        "Income after shock:",
+        result["after_shock"]["income"]
+    )
+
+    print(
+        "Spending after shock:",
+        result["after_shock"]["spending"]
+    )
+
+    print(
+        "Buffer after shock:",
+        result["after_shock"]["buffer_left"]
+    )
+
+    print(
+        "Runway:",
+        result["after_shock"]["runway_display"]
+    )
+
+    print(
+        "Survives six months:",
+        result["after_shock"]["survives_six_months"]
+    )
+
+    assert result["after_shock"]["runway_months"] == 4.2
+
+    print("Example test passed!")
