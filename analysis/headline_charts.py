@@ -76,3 +76,22 @@ short = (prof.rw_ei < 6)
 titles(fig, ax, "1 in 3 customers can't get through a 6-month layoff on EI", f"Months of savings if laid off with EI at 55% · orange = runs out before 6 months ({short.sum():,} of {len(prof):,})")
 fig.tight_layout(rect=(0, 0, 1, 0.86)); fig.savefig(OUT / "headline_3_resilience_gap.png", dpi=200); plt.close(fig)
 print("saved headline charts")
+
+# ---------- 4. big balances, thin cushions (headline)
+prof = pd.read_csv(OUT / "all_profiles_runway.csv")
+prof["q"] = pd.qcut(prof.I.rank(method="first"), 4, labels=["Lowest\nincome", "2nd", "3rd", "Highest\nincome"])
+prof["bufmo"] = prof.B / prof.S
+g = prof.groupby("q", observed=True)
+months, dollars = g.bufmo.median(), g.B.median()
+fig, ax = plt.subplots(figsize=(9, 5.2))
+rounded_bars(ax, range(4), months.values, [GREY, GREY, GREY, ORANGE])
+ax.set_xticks(range(4), [str(x) for x in months.index], color=INK)
+for i, (m, d) in enumerate(zip(months.values, dollars.values)):
+    ax.text(i, m + months.max() * 0.03, f"{m:.1f} mo", ha="center", fontsize=18, fontweight="bold", color=INK)
+    ax.text(i, m + months.max() * 0.13, f"${d:,.0f} saved", ha="center", fontsize=11.5, color=MUTED)
+titles(fig, ax, "Big balances hide thin cushions",
+       "Median savings in months of the customer's own spending, by income quarter (4,500 customers)")
+fig.text(0.01, 0.01, "Highest vs lowest earners: 20.7% vs 2.3% run out within 3 months on EI · a one-month repair wipes out 8.4% vs 1.2%",
+         fontsize=10, color=MUTED)
+fig.tight_layout(rect=(0, 0.03, 1, 0.86)); fig.savefig(OUT / "headline_4_thin_cushions.png", dpi=200); plt.close(fig)
+print("saved thin cushions chart")

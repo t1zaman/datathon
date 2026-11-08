@@ -2,14 +2,30 @@
 All numbers from the Tangerine track data (4,500 accounts, 682 loans). Reproduce with
 `cd analysis && python checks.py ../data && python findings.py ../data && python headline_charts.py ../data`.
 
-## Headline
-**The warning shows up before the loan.** Every customer whose balance went below $0 in the months
-*before* taking a loan later defaulted: **27 of 27 (100%)**, vs **49 of 655 (7.5%)** for everyone else.
+## Headline: big balances hide thin cushions
+Splitting all 4,500 customers into quarters by typical money in (deposits and transfers, not salary):
+
+| Income quarter | Median savings | Savings in months of own spending | Run out within 3 months on EI (55%) | One-month repair wipes out savings |
+|---|---|---|---|---|
+| Lowest | $13,850 | 8.4 | 2.3% | 1.2% |
+| 2nd | $17,870 | 4.5 | 4.9% | 2.7% |
+| 3rd | $26,958 | 2.6 | 12.4% | 3.7% |
+| Highest | $34,775 | 1.9 | 20.7% | 8.4% |
+
+The highest earners hold 2.5× the dollars but have less than a quarter of the cushion in months, and they are
+9× more likely to run out on EI. It holds for every shock type, not just one formula. Running-loan customers show
+the same pattern: bigger median buffers ($28,710 vs $21,606) but more vulnerable (19.87% vs 9.01% below 3 months
+on EI). First surfaced in the team's insights dashboard (insights/insights.html).
+
+## Second finding: the warning shows up before the loan
+Every customer whose balance went below $0 in the months before taking a loan later defaulted: **27 of 27 (100%)**,
+vs **49 of 655 (7.5%)** for everyone else.
 
 - Not chance: Fisher exact p ≈ 1.6e-28.
 - Not tiny fee overdrafts: median worst balance among the 27 was −$1,564.
 - Still holds counting only dips ≥3 months before the loan (17 of 17) or only dips below −$100 (26 of 26).
 - It catches 36% of all defaults (27 of 76), so it's a red flag, not a full credit model.
+- 321 of the 454 customers who can't last 3 months on EI never went below $0, so the flag must be paired with the stress test.
 
 **Second signal: uneven income.** Splitting loans into quarters by month-to-month income swings before the loan,
 default rates were 4.1% / 4.7% / 12.9% / **22.8%**: the most uneven quarter defaults **5.6×** as often as the steadiest.

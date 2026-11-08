@@ -137,13 +137,15 @@ def _gemini():
         return None
     try:
         from google import genai
-        return genai.Client(api_key=key)
+        # Hard timeout per call so a slow model can never stall a live demo (falls back to rules)
+        timeout_ms = int(float(os.environ.get("GEMINI_TIMEOUT", "12")) * 1000)
+        return genai.Client(api_key=key, http_options={"timeout": timeout_ms})
     except Exception:
         return None
 
 
 def _gen_json(client, prompt: str) -> dict:
-    model = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
+    model = os.environ.get("GEMINI_MODEL", "gemini-3.5-flash-lite")
     r = client.models.generate_content(model=model, contents=prompt,
                                        config={"system_instruction": SYSTEM, "response_mime_type": "application/json"})
     return json.loads(r.text)

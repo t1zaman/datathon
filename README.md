@@ -9,13 +9,19 @@ signs, and builds a plan from the customer's own numbers.
 ![App screenshot](docs/app_screenshot.png)
 
 ## Our finding
-**The warning shows up before the loan.** Every customer whose balance went below $0 in the months
+**Big balances hide thin cushions.** Our highest earners have **2.5× more money** in the bank than the lowest
+earners, but it covers only **1.9 months** of their own spending, versus **8.4 months**. On EI they are
+**9× more likely** to run out within 3 months (20.7% vs 2.3%), and a one-month repair wipes out savings for
+8.4% of them vs 1.2%. A big balance isn't a safe customer: safety should be measured in months, not dollars.
+
+![Big balances hide thin cushions](docs/headline_4_thin_cushions.png)
+
+**Second finding: the warning shows up early.** Every customer whose balance went below $0 in the months
 *before* taking a loan later defaulted: **27 of 27 (100%)**, vs **7.5%** of everyone else
 (Fisher exact p < 1e-27; still 17 of 17 counting only dips 3+ months before the loan).
 
 - Uneven income = **5.6×** the default rate (22.8% vs 4.1%).
 - **1 in 3 customers** (1,578 of 4,500) can't get through a 6-month layoff on EI.
-- For 97.5% of at-risk customers, the fix is within reach: the needed cut is smaller than their flexible spending.
 - 212 customers without a loan have already dipped below $0, 122 of them in 2025. Reach them before they ask for credit.
 
 Full write-up, data checks and limits: **[FINDINGS.md](FINDINGS.md)** · Charts: [`docs/`](docs)

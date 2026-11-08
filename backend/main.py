@@ -13,6 +13,7 @@ from backend.shock_service import simulate_customer_shock
 from backend.recovery_planner import build_recovery_plan
 from backend.twist_parser import parse_twist
 from backend.chat import chat as hazel_chat
+from backend.insights_data import build_insights_data
 
 
 # Create the FastAPI application
@@ -214,6 +215,22 @@ app.mount("/assets", StaticFiles(directory=FRONTEND.parent / "assets"), name="as
 @app.get("/app", include_in_schema=False)
 def frontend():
     return FileResponse(FRONTEND)
+
+
+# Insights tab: page + the per-account profiles it charts (computed from the CSVs, never stored in the repo)
+_insights_cache = {}
+
+
+@app.get("/api/insights/data")
+def insights_data():
+    if "data" not in _insights_cache:
+        _insights_cache["data"] = build_insights_data(monthly, loans)
+    return _insights_cache["data"]
+
+
+@app.get("/insights", include_in_schema=False)
+def insights_page():
+    return FileResponse(FRONTEND.parent / "insights.html")
 
 
 # Ask Hazel: chat coach. Gemini interprets, the engine computes (see backend/chat.py)

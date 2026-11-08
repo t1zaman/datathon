@@ -168,7 +168,7 @@ def simulate_shock(
         monthly_gap <= 0 or buffer_left >= target * monthly_gap
     )
     if buffer <= 0:
-        verdict = (f"No savings to fall back on: their buffer is already ${buffer:,.0f}, "
+        verdict = (f"No savings to fall back on: their buffer is already −${abs(buffer):,.0f}, "
                    f"so runway is 0 before any shock.")
     elif buffer_left <= 0:
         verdict = (f"Can't absorb it: the one-off cost (${one_off:,.0f}) is bigger "

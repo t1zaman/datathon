@@ -62,6 +62,11 @@ def parse_rules(text: str) -> dict:
             out["extra_monthly_spending"] = amt
         else:
             out["one_off_cost"] = amt
+    # Track rule: a furnace (or similar emergency repair) costs one month of typical spending
+    # when the card names no amount.
+    if not out["one_off_months_of_spending"] and not out["one_off_cost"] and re.search(
+            r"furnace|boiler|water heater|roof|(?:car|house|home|emergency|big|major|surprise)\s+repair|repair bill|breaks down|break[s]? down", t):
+        out["one_off_months_of_spending"] = 1.0
     return out
 
 
@@ -71,12 +76,13 @@ def parse_gemini(text: str) -> dict | None:
         return None
     try:
         from google import genai
-        client = genai.Client(api_key=key)
+        timeout_ms = int(float(os.environ.get("GEMINI_TIMEOUT", "8")) * 1000)
+        client = genai.Client(api_key=key, http_options={"timeout": timeout_ms})
         prompt = ("You convert a bank stress-test 'twist card' into JSON parameters for a resilience engine.\n"
                   "Return ONLY a JSON object with these keys:\n" +
                   "\n".join(f"- {k}: {v}" for k, v in FIELDS.items()) +
                   f"\n\nTwist card: \"{text}\"")
-        r = client.models.generate_content(model=os.environ.get("GEMINI_MODEL", "gemini-2.5-flash"), contents=prompt,
+        r = client.models.generate_content(model=os.environ.get("GEMINI_MODEL", "gemini-3.5-flash-lite"), contents=prompt,
                                            config={"response_mime_type": "application/json"})
         data = json.loads(r.text)
         base = parse_rules("")
@@ -88,8 +94,15 @@ def parse_gemini(text: str) -> dict | None:
 
 
 def parse_twist(text: str) -> tuple[dict, str]:
+    # Live-twist speed matters most: use the instant rule reader when it understands the card,
+    # and only ask Gemini when the rules found nothing (unusual wording).
+    rules = parse_rules(text)
+    understood = (rules["income_factor"] != 1.0 or rules["household_bills_up_pct"] or rules["one_off_cost"]
+                  or rules["one_off_months_of_spending"] or rules["extra_monthly_spending"])
+    if understood:
+        return rules, "rules"
     g = parse_gemini(text)
-    return (g, "Gemini") if g else (parse_rules(text), "rules")
+    return (g, "Gemini") if g else (rules, "rules")
 
 
 if __name__ == "__main__":

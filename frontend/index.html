@@ -192,6 +192,12 @@
     .mini{display:flex;position:sticky;top:0;z-index:5;background:var(--brown-dk);color:#fff;padding:10px 16px;gap:10px;align-items:center;justify-content:space-between;font-size:15px}
     .mini b{font-size:18px;font-family:var(--serif)}
   }
+  .apptabs{display:inline-flex;background:#F3E8DA;border-radius:99px;padding:4px;gap:4px}
+  .apptabs button{border:0;background:none;padding:10px 22px;border-radius:99px;font-weight:800;font-size:16px;color:var(--ink);min-height:46px;cursor:pointer;font-family:inherit}
+  .apptabs button[aria-selected="true"]{background:var(--brown-dk);color:#fff}
+  #insightsView{max-width:1440px;margin:0 auto}
+  #insightsView iframe{display:block;width:100%;border:0;min-height:80vh;background:transparent}
+  body.on-insights main,body.on-insights .fab,body.on-insights .chat,body.on-insights .mini,body.on-insights #acctForm{display:none!important}
 </style>
 </head>
 <body>
@@ -200,6 +206,10 @@
     <img src="/assets/hazel-happy-sm.png" alt="" aria-hidden="true">
     <div><b>Squirrel Away</b><small>Get winterproof before the shock hits</small></div>
   </div>
+  <nav class="apptabs" role="tablist" aria-label="Views">
+    <button role="tab" id="tabCust" aria-selected="true" aria-controls="custView" type="button">Customer</button>
+    <button role="tab" id="tabIns" aria-selected="false" aria-controls="insightsView" type="button">Insights</button>
+  </nav>
   <form class="acct" id="acctForm" onsubmit="return false">
     <label for="acct">Customer</label>
     <input id="acct" type="number" inputmode="numeric" placeholder="account_id">
@@ -209,7 +219,7 @@
 </header>
 <div class="mini" id="mini" aria-hidden="true"><span id="miniTxt">–</span><b id="miniRw">–</b></div>
 
-<main>
+<main id="custView" role="tabpanel" aria-labelledby="tabCust">
   <div class="err" id="err" role="alert"></div>
 
   <div class="stage">
@@ -279,9 +289,10 @@
     <div class="note" id="notes"></div>
   </section>
 </main>
+<section id="insightsView" role="tabpanel" aria-labelledby="tabIns" hidden></section>
 <button class="fab" id="fab" type="button" aria-controls="chat" aria-expanded="false"><img src="/assets/hazel-happy-sm.png" alt="" aria-hidden="true"><span><b>Ask Hazel</b></span></button>
 <section class="chat" id="chat" role="dialog" aria-label="Ask Hazel chat">
-  <div class="chat-h"><img src="/assets/hazel-happy-sm.png" alt="" aria-hidden="true"><div><b>Ask Hazel</b><small id="chatSub">About this customer · any language</small></div><button type="button" id="chatClose" aria-label="Close chat">×</button></div>
+  <div class="chat-h"><img src="/assets/hazel-happy-sm.png" alt="" aria-hidden="true"><div><b>Ask Hazel</b><small id="chatSub">About this customer · English, Français…</small></div><button type="button" id="chatClose" aria-label="Close chat">×</button></div>
   <div class="msgs" id="msgs" aria-live="polite"></div>
   <div class="sugg" id="sugg"></div>
   <form id="chatForm"><label for="chatIn" class="sr">Message</label><input id="chatIn" autocomplete="off" placeholder="Ask a question or a what-if…"><button class="btn" type="submit">Send</button></form>
@@ -565,6 +576,15 @@ $("go").addEventListener("click", () => { history.length = 0; $("msgs").innerHTM
 if (matchMedia("(min-width: 1100px)").matches) $("tune").open = true;
 $("fund").value = 3; setShock(PRESETS[shockLabel], shockLabel);
 api("/api/accounts/random").then(r => { $("acct").value = r.account_id; run(); }).catch(() => {});
+</script>
+<script>
+(()=>{const ti=document.getElementById('tabIns'),tc=document.getElementById('tabCust'),v=document.getElementById('insightsView');let fr=null;
+function show(ins,push){document.body.classList.toggle('on-insights',ins);v.hidden=!ins;ti.setAttribute('aria-selected',ins);tc.setAttribute('aria-selected',!ins);
+ if(ins&&!fr){fr=document.createElement('iframe');fr.title='Squirrel Away insights';fr.src='/insights?embed=1';v.appendChild(fr)}
+ if(push)window.history.replaceState(null,'',ins?'#insights':location.pathname+location.search);window.scrollTo(0,0)}
+ti.onclick=()=>show(true,true);tc.onclick=()=>show(false,true);
+addEventListener('message',e=>{if(fr&&e.source===fr.contentWindow&&e.data&&e.data.type==='squirrel-insights-height')fr.style.height=(e.data.height+8)+'px'});
+if(location.hash==='#insights')show(true,false);})();
 </script>
 </body>
 </html>
